@@ -1,5 +1,7 @@
 from flask import Flask
+from flask import request
 from flask import render_template
+
 
 app = Flask(__name__)
 
@@ -26,18 +28,32 @@ def home_page():
         posts = posts
 	)
 
-@app.route("/open")
+@app.route("/about")
 def about_page():
 	return render_template(
 		"about.html "
 	)
  
-@app.route("/consss")
-def content_page():
-	return render_template(
-		"contect.html "
-	)
- 
+@app.route("/contact", methods=["GET","POST"])
+def contact_page():
+    
+    if request.method=="POST":
+        
+        name=request.form.get("name")
+        email=request.form.get("email")
+        message=request.form.get("message")
+        
+        
+        print(name)
+        print(email)
+        print(message)
+        
+        
+    return render_template(
+		"contact.html",
+		blog_name = "Flask Blog"
+
+    )
  
 @app.errorhandler(404)
 def page_not_found(error):
@@ -51,13 +67,12 @@ def page_not_found(error):
     ), 404
 
 
-@app.route("/error")
-def error():
+# @app.route("/error")
+# def error():
     
-    number=10/0
+#     number=10/0
     
-    return str(number)
-
+#     return str(number)
 
 @app.errorhandler(500)
 def internal_server_error(error):
@@ -69,16 +84,9 @@ def internal_server_error(error):
         blog_name="Flask Blog"
 
     ), 500
- 
-@app.route("login")
-def login_page():
-    
-    return render_template(
-		"login.html"
-	)
-    
+       
 if __name__ == "__main__":
-	app.run(debug=False)
+	app.run(debug=True)
 
 	
 	
