@@ -1,9 +1,12 @@
 from flask import Flask
 from flask import request
 from flask import render_template
+from forms import ContactForm
 
 
 app = Flask(__name__)
+
+app.config["SECRET_KEY"] = "my-secret-key"
 
 @app.route("/")
 def home_page():
@@ -34,25 +37,26 @@ def about_page():
 		"about.html "
 	)
  
-@app.route("/contact", methods=["GET","POST"])
+@app.route("/contact", methods=["GET", "POST"])
 def contact_page():
-    
-    if request.method=="POST":
-        
-        name=request.form.get("name")
-        email=request.form.get("email")
-        message=request.form.get("message")
-        
-        
-        print(name)
-        print(email)
-        print(message)
-        
-        
-    return render_template(
-		"contact.html",
-		blog_name = "Flask Blog"
 
+    form = ContactForm()
+
+    if form.validate_on_submit():
+
+        print(form.name.data)
+
+        print(form.email.data)
+
+        print(form.message.data)
+
+    return render_template(
+
+        "contact.html",
+
+        blog_name="Flask Blog",
+
+        form = form
     )
  
 @app.errorhandler(404)
