@@ -3,7 +3,6 @@ from flask import request
 from flask import render_template
 from forms import ContactForm
 
-
 app = Flask(__name__)
 
 app.config["SECRET_KEY"] = "my-secret-key"
@@ -20,7 +19,8 @@ def home_page():
 	posts =[
 		"introdution to flask",
 		"Understanign Routes",
-		"Learning Jinjia2 Templates"
+		"Learning Jinjia2 Templates",
+		"Flask Web Development"
 	]
 	
 	return render_template(
@@ -58,6 +58,20 @@ def contact_page():
 
         form = form
     )
+    
+    
+@app.route("/login")
+def login_page():
+	return render_template(
+		"login.html "
+	)
+ 
+@app.route("/login")
+def register_page():
+	return render_template(
+		"register.html "
+	)
+  
  
 @app.errorhandler(404)
 def page_not_found(error):
@@ -90,7 +104,7 @@ def internal_server_error(error):
     ), 500
        
 if __name__ == "__main__":
-	app.run(debug=True)
+	app.run(debug=False)
 
 	
 	
