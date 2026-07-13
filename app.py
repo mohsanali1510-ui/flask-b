@@ -47,6 +47,8 @@ def contact_page():
         print(form.name.data)
 
         print(form.email.data)
+        
+        print(form.phone.data)
 
         print(form.message.data)
 
@@ -66,7 +68,7 @@ def login_page():
 		"login.html "
 	)
  
-@app.route("/login")
+@app.route("/register")
 def register_page():
 	return render_template(
 		"register.html "
@@ -104,7 +106,7 @@ def internal_server_error(error):
     ), 500
        
 if __name__ == "__main__":
-	app.run(debug=False)
+	app.run(debug=True)
 
 	
 	
