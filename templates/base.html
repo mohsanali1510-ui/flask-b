@@ -21,13 +21,12 @@
 <h1 class="display-4">{{ blog_name }}</h1>
 <p class="lead">Created by {{owner}}</p>
 
-<a href="{{url_for('about_page')}}" class="btn btn-danger">About Us</a>
+<a href="{{url_for('about_page')}}" class="btn btn-outline-success">About Us</a>
 
-<a href="{{url_for('contact_page')}}" class="btn btn-danger">content Us</a>
+<a href="{{url_for('contact_page')}}" class="btn btn-outline-success">content Us</a>
 
-<a href="{{url_for('login_page')}}" class="btn btn-danger">Login</a>
+<a href="{{url_for('login')}}" class="btn btn-outline-success">Login</a>
 
-<!-- <a href="{{url_for('register_page')}}" class="btn btn-danger">register</a> -->
 
 <hr>
         {% block content %}

@@ -1,7 +1,7 @@
 from flask import Flask
 from flask import request
 from flask import render_template
-from forms import ContactForm
+from forms import ContactForm, LoginForm
 
 app = Flask(__name__)
 
@@ -62,18 +62,24 @@ def contact_page():
     )
     
     
-@app.route("/login")
-def login_page():
-	return render_template(
-		"login.html "
-	)
- 
-@app.route("/register")
-def register_page():
-	return render_template(
-		"register.html "
-	)
-  
+@app.route("/login", methods=["GET", "POST"])
+def login():
+
+    form = LoginForm()
+
+    if form.validate_on_submit():
+
+        print("Username:", form.username.data)
+
+        print("Password:", form.password.data)
+
+        print("Remember Me:", form.remember_me.data)
+
+    return render_template(
+        "login.html",
+        blog_name="Flask Blog",
+        form=form
+    )
  
 @app.errorhandler(404)
 def page_not_found(error):
