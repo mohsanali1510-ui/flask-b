@@ -1,6 +1,7 @@
 from flask import Flask
 from flask import request
 from flask import render_template
+from flask_sqlalchemy import SQLAlchemy
 from forms import (
     ContactForm,
     LoginForm,
@@ -9,7 +10,13 @@ from forms import (
 
 app = Flask(__name__)
 
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///blog.db"
+
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+
 app.config["SECRET_KEY"] = "my-secret-key"
+
+db = SQLAlchemy(app)
 
 @app.route("/")
 def home_page():
