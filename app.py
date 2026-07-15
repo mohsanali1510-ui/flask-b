@@ -1,7 +1,11 @@
 from flask import Flask
 from flask import request
 from flask import render_template
-from forms import ContactForm, LoginForm
+from forms import (
+    ContactForm,
+    LoginForm,
+    RegistrationForm
+)
 
 app = Flask(__name__)
 
@@ -12,7 +16,7 @@ def home_page():
     
 	blog_name = "Flask Blog"
     
-	owner = "Mohsan and Arslan"
+	owner = "Mohsan  developer"
     
 	total_posts = 3
 
@@ -81,6 +85,30 @@ def login():
         form=form
     )
  
+ 
+ 
+@app.route("/register", methods=["GET", "POST"])
+def register():
+
+    form = RegistrationForm()
+
+    if form.validate_on_submit():
+
+        print("Username:", form.username.data)
+
+        print("Email:", form.email.data)
+
+        print("Password:", form.password.data)
+
+    return render_template(
+        "register.html",
+        blog_name="Flask Blog",
+        form=form
+    )
+ 
+ 
+ 
+ 
 @app.errorhandler(404)
 def page_not_found(error):
 
@@ -112,7 +140,7 @@ def internal_server_error(error):
     ), 500
        
 if __name__ == "__main__":
-	app.run(debug=True)
+	app.run(debug=False)
 
 	
 	
