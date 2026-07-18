@@ -1,22 +1,25 @@
 from flask import Flask
-from flask import request
 from flask import render_template
-from flask_sqlalchemy import SQLAlchemy
-from forms import (
-    ContactForm,
-    LoginForm,
-    RegistrationForm
-)
+from flask import request
+
+from forms import ContactForm
+from forms import LoginForm
+from forms import RegistrationForm
+
+
+from extensions import db
+from models import User,Role
+
 
 app = Flask(__name__)
+
+app.config["SECRET_KEY"] = "your-secret-key"
 
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///blog.db"
 
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
-app.config["SECRET_KEY"] = "my-secret-key"
-
-db = SQLAlchemy(app)
+db.init_app(app)
 
 @app.route("/")
 def home_page():
@@ -145,9 +148,61 @@ def internal_server_error(error):
         blog_name="Flask Blog"
 
     ), 500
-       
+    
+    
+@app.route("/create-user")
+def create_user():
+
+    user = User(
+        username="mohsan",
+        email="mohsan@gmail.com"
+    )
+
+    db.session.add(user)
+
+    db.session.commit()
+
+    return "User Created Successfully"    
+
+
+@app.route("/users")
+def users():
+
+    users = User.query.all()
+
+    result = ""
+
+    for user in users:
+        result += f"{user.username} - {user.email}<br>"
+
+    return result
+
+
+@app.route("/user")
+def user():
+
+    user = User.query.first()
+
+    return f"{user.username} - {user.email}"
+
+
+@app.route("/update-user")
+def update_user():
+
+    user = User.query.first()
+
+    user.email = "bilalasghar@gmail.com"
+
+    db.session.commit()
+
+    return "User Updated Successfully"
+
+with app.app_context():
+    db.create_all()
+
+
 if __name__ == "__main__":
-	app.run(debug=False)
+	app.run(debug=True)
 
 	
 	
