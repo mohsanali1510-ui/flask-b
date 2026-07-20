@@ -31,7 +31,7 @@ class User(db.Model):
         primary_key=True
     )
 
-    username = db.Column(
+    username    = db.Column(
         db.String(50),
         unique=True,
         nullable=False

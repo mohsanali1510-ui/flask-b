@@ -154,15 +154,15 @@ def internal_server_error(error):
 def create_user():
 
     user = User(
-        username="mohsan",
-        email="mohsan@gmail.com"
+        username="Bilal",
+        email="bilal@gmail.com"
     )
 
     db.session.add(user)
 
     db.session.commit()
 
-    return "User Created Successfully"    
+    return "User Created Successfully" 
 
 
 @app.route("/users")
@@ -178,24 +178,77 @@ def users():
     return result
 
 
-@app.route("/user")
-def user():
-
-    user = User.query.first()
-
-    return f"{user.username} - {user.email}"
-
-
 @app.route("/update-user")
 def update_user():
 
     user = User.query.first()
 
-    user.email = "bilalasghar@gmail.com"
+    user.email = "mohsan@gmail.com"
 
     db.session.commit()
 
     return "User Updated Successfully"
+
+
+
+
+@app.route("/first-user")
+def first_user():
+
+    user = User.query.first()
+
+    if user:
+        return f"{user.username} - {user.email}"
+
+    return "No User Found"
+
+
+@app.route("/find-user")
+def find_user():
+
+    user = User.query.filter_by(username="mohsan").first()
+
+    if user:
+        return user.email
+
+    return "User Not Found"
+
+
+@app.route("/count-users")
+def count_users():
+
+    total = User.query.count()
+
+    return f"Total Users : {total}"
+
+
+
+@app.route("/sorted-users")
+def sorted_users():
+
+    users = User.query.order_by(User.username).all()
+
+    output = ""
+
+    for user in users:
+        output += f"{user.username}<br>"
+
+    return output
+
+
+
+@app.route("/two-users")
+def two_users():
+
+    users = User.query.limit(2).all()
+
+    output = ""
+
+    for user in users:
+        output += f"{user.username}<br>"
+
+    return output
+
 
 with app.app_context():
     db.create_all()
