@@ -7,7 +7,7 @@ from forms import LoginForm
 from forms import RegistrationForm
 
 
-from extensions import db
+from extensions import db, migrate
 from models import User,Role
 
 
@@ -20,6 +20,8 @@ app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///blog.db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db.init_app(app)
+
+migrate.init_app(app, db)
 
 @app.route("/")
 def home_page():
@@ -249,9 +251,6 @@ def two_users():
 
     return output
 
-
-with app.app_context():
-    db.create_all()
 
 
 if __name__ == "__main__":
