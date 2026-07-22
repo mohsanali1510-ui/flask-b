@@ -7,7 +7,7 @@ from forms import LoginForm
 from forms import RegistrationForm
 
 
-from extensions import db, migrate
+from extensions import db, migrate,mail
 from models import User,Role
 
 
@@ -22,6 +22,8 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db.init_app(app)
 
 migrate.init_app(app, db)
+
+mail.init_app(app)
 
 @app.route("/")
 def home_page():
