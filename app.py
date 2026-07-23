@@ -60,6 +60,7 @@ def home_page():
 
 @app.route("/about")
 def about_page():
+    
 	return render_template(
 		"about.html "
 	)
@@ -129,7 +130,7 @@ def register():
         form=form
     )
  
- 
+
  
  
 @app.errorhandler(404)
@@ -163,7 +164,6 @@ def internal_server_error(error):
     ), 500
     
     
-
 
 
 if __name__ == "__main__":

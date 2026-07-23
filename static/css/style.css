@@ -1,3 +1,38 @@
 body {
     background-color: rgb(255, 211, 211);
 }
+
+.social-icons {
+    display: flex;
+    gap: 15px; /* Icons ke beech ka gap */
+    justify-content: center; /* Center mein karne ke liye */
+    margin-top: 20px;
+}
+
+.icon-btn {
+    font-size: 24px; /* Icon ka size */
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%; /* Gol (Circle) karne ke liye */
+    border: 1px solid #2e7d32; /* Jaisa aapka border green hai */
+    color: #2e7d32;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+/* Hover karne par rang badalna */
+.icon-btn:hover {
+    background-color: #2e7d32;
+    color: white;
+}
+.left{
+    margin-left: 20px;
+}
+
+
+.alpha {
+    margin-left: 8%;
+}
